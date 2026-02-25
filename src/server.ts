@@ -12,7 +12,11 @@ const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+
+// UPDATE IS HERE: Pass the allowedHosts configuration to the engine
+const angularApp = new AngularNodeAppEngine({
+  allowedHosts: ['192.168.29.154','192.168.137.1',"*"]// Added your local IP and localhost
+});
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -21,7 +25,7 @@ const angularApp = new AngularNodeAppEngine();
  * Example:
  * ```ts
  * app.get('/api/**', (req, res) => {
- *   // Handle API request
+ * // Handle API request
  * });
  * ```
  */

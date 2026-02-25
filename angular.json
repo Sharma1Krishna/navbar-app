@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
   "newProjectRoot": "projects",
   "projects": {
     "navbar-app": {
@@ -38,7 +41,12 @@
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
-              "allowedHosts": []
+              "allowedHosts": [
+                "192.168.137.1",
+                "192.168.29.154",
+                "myapp.local",
+                "*"
+              ]
             },
             "ssr": {
               "entry": "src/server.ts"
@@ -71,15 +79,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-    "host": "0.0.0.0",
-    "port": 4200,
-    "allowedHosts": [
+            "host": "0.0.0.0",
+            "port": 4200,
+            "allowedHosts": [
       "192.168.137.1",
       "192.168.29.154",
-      "myapp.local"
-    ]
-  },
-
+      "myapp.local",
+      "*"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "navbar-app:build:production"
