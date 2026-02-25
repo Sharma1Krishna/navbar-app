@@ -23,15 +23,16 @@
 
 <!-- Templates -->
 <ng-template #navItem let-item let-i="index">
-    <nav class="desktop-nav" (mouseleave)="onMouseLeave(item.name); activeIndex = null"
+    <nav class="desktop-nav" (mouseleave)="onMouseLeave(item.name); activeIndex = -1"
     (mouseenter)="onMouseEnter(item.name); activeIndex = i"
     >
         <ul>
             <li class="nav-item" [class.has-children]="item.children?.length" 
                 >
-                <app-link [path]="item.path" [linkClass]="'main-link'">{{ item.name }}<span
-                    *ngIf="item.children?.length"> ▾</span></app-link>
-                <div class="dropdown" *ngIf="item.children?.length && i == activeIndex">
+                <app-link [path]="item.path" [linkClass]="'main-link'">{{ item.name }}
+                    <span
+                    *ngIf="item.children?.length">▾</span></app-link>
+                <div class="dropdown" [hidden]="i != activeIndex">
                     <ng-container *ngFor="let c of item.children">
                         <app-link [path]="c.path" [linkClass]="'dropdown-link'" (linkClick)="reset()">{{ c.name }}</app-link>
                     </ng-container>

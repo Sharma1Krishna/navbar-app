@@ -117,8 +117,7 @@ nav ul {
 .desktop-nav ul { display:flex; gap: 6px; margin:0; padding:0; }
 .desktop-nav .nav-item { list-style:none; }
 .desktop-nav .main-link { color: #f8fafc; padding: 14px 18px; display:inline-block; }
-.desktop-nav .dropdown { position:absolute; background:#fff; color:#111827; border-radius:6px; padding:8px; margin-top:6px; display:none; box-shadow:0 8px 20px rgba(2,6,23,0.2); }
-.desktop-nav .nav-item:hover .dropdown { display:block; }
+.desktop-nav .dropdown { position:absolute; background:#fff; color:#111827; border-radius:6px; padding:8px; margin-top:6px; ; box-shadow:0 8px 20px rgba(2,6,23,0.2); }
 .dropdown-link { display:block; padding:8px 12px; color:#0f172a; text-decoration:none; }
 
 /* Drawer styles */

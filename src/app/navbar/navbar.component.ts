@@ -12,7 +12,7 @@ import { AppLinkComponent } from '../shared/app-link.component';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  activeIndex: number | null = null;
+  activeIndex: number | null = -1;
   activeMenu: string | null = null; 
   private closeTimeout: any;
   isDrawerOpen = false;
@@ -75,8 +75,8 @@ export class NavbarComponent {
   reset() {
     this.addLog("claaing reset")
     this.isDrawerOpen = false;
-    this.activeMenu = null;
-    this.activeIndex = null
+    // this.activeMenu = null;
+    this.activeIndex = -1
   }
   onMouseEnter(menuName: string) {
     // 2. Log the event to the UI

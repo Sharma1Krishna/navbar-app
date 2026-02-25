@@ -16,12 +16,13 @@ export class AppLinkComponent {
   constructor(private router: Router) {}
 
   navigate(event: MouseEvent) {
-    this.linkClick.emit();
+    
     event.preventDefault();
     if (!this.path) return;
-    
+    this.linkClick.emit();
     setTimeout(() => {
       this.router.navigate([this.path]);
+      
     }, 2800);
   }
 }
