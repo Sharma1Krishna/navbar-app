@@ -109,7 +109,11 @@ nav ul {
 
 .hamburger span { width: 22px; margin: 10px auto; }
 .hamburger span.open { transform: rotate(45deg); }
-
+.desktop-nav {
+    height: 120px;
+    border: 1px solid red;
+    padding-bottom: 30px;
+}
 .desktop-nav ul { display:flex; gap: 6px; margin:0; padding:0; }
 .desktop-nav .nav-item { list-style:none; }
 .desktop-nav .main-link { color: #f8fafc; padding: 14px 18px; display:inline-block; }

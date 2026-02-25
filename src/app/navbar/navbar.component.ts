@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -11,6 +12,7 @@ import { AppLinkComponent } from '../shared/app-link.component';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  activeIndex: number | null = null;
   activeMenu: string | null = null; 
   private closeTimeout: any;
   isDrawerOpen = false;
@@ -70,7 +72,12 @@ export class NavbarComponent {
 
   // 1. Array to hold our on-screen logs
   uiLogs: string[] = [];
-
+  reset() {
+    this.addLog("claaing reset")
+    this.isDrawerOpen = false;
+    this.activeMenu = null;
+    this.activeIndex = null
+  }
   onMouseEnter(menuName: string) {
     // 2. Log the event to the UI
     this.addLog(`mouseenter: ${menuName}`);
@@ -85,13 +92,13 @@ export class NavbarComponent {
     const name = menuName ?? this.activeMenu ?? 'unknown';
     this.addLog(`mouseleave: ${name}`);
 
-    this.closeTimeout = setTimeout(() => {
-      if (name === 'unknown') {
-        this.activeMenu = null;
-      } else if (this.activeMenu === name) {
-        this.activeMenu = null;
-      }
-    }, 200);
+    // this.closeTimeout = setTimeout(() => {
+    //   if (name === 'unknown') {
+    //     this.activeMenu = null;
+    //   } else if (this.activeMenu === name) {
+    //     this.activeMenu = null;
+    //   }
+    // }, 200);
   }
 
   toggleDrawer() {

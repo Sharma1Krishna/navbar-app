@@ -1,31 +1,17 @@
-<div style="height: 200px;">zk</div>
+<div style="height: 200px;">zk{{isDrawerOpen}} Active index:: {{activeIndex}}</div>
 <header class="site-header">
-    <div class="brand">My Company</div>
+    <!-- <div class="brand">My Company</div>
     <button class="hamburger" aria-label="Menu" (click)="toggleDrawer()">
         <span [class.open]="isDrawerOpen"></span>
-    </button>
+    </button> -->
 
 
-    <ng-container *ngFor="let item of menuItems">
-        <ng-container *ngTemplateOutlet="navItem; context: { $implicit: item }"></ng-container>
+    <ng-container *ngFor="let item of menuItems; let i = index"> 
+        <ng-container *ngTemplateOutlet="navItem; context: { $implicit: item, index: i }"></ng-container>
     </ng-container>
 
 </header>
 
-<!-- Mobile drawer -->
-<aside class="drawer" [class.open]="isDrawerOpen" (click)="closeDrawer()">
-    <div class="drawer-inner" (click)="$event.stopPropagation()">
-        <div class="drawer-header">
-            <strong>Menu</strong>
-            <button class="close" (click)="closeDrawer()">✕</button>
-        </div>
-        <ul class="drawer-list">
-            <ng-container *ngFor="let item of menuItems">
-                <ng-container *ngTemplateOutlet="drawerItem; context: { $implicit: item }"></ng-container>
-            </ng-container>
-        </ul>
-    </div>
-</aside>
 
 <div class="ui-console">
     <button (click)="clearLogs()">Clear Logs</button>
@@ -36,30 +22,21 @@
 </div>
 
 <!-- Templates -->
-<ng-template #navItem let-item>
-    <nav class="desktop-nav" (mouseleave)="onMouseLeave(item.name)">
+<ng-template #navItem let-item let-i="index">
+    <nav class="desktop-nav" (mouseleave)="onMouseLeave(item.name); activeIndex = null"
+    (mouseenter)="onMouseEnter(item.name); activeIndex = i"
+    >
         <ul>
-            <li class="nav-item" [class.has-children]="item.children?.length" (mouseenter)="onMouseEnter(item.name)"
+            <li class="nav-item" [class.has-children]="item.children?.length" 
                 >
                 <app-link [path]="item.path" [linkClass]="'main-link'">{{ item.name }}<span
-                        *ngIf="item.children?.length"> ▾</span></app-link>
-                <div class="dropdown" *ngIf="item.children?.length">
+                    *ngIf="item.children?.length"> ▾</span></app-link>
+                <div class="dropdown" *ngIf="item.children?.length && i == activeIndex">
                     <ng-container *ngFor="let c of item.children">
-                        <app-link [path]="c.path" [linkClass]="'dropdown-link'">{{ c.name }}</app-link>
+                        <app-link [path]="c.path" [linkClass]="'dropdown-link'" (linkClick)="reset()">{{ c.name }}</app-link>
                     </ng-container>
                 </div>
             </li>
         </ul>
     </nav>
-</ng-template>
-
-<ng-template #drawerItem let-item>
-    <li class="drawer-item">
-        <app-link [path]="item.path" [linkClass]="'drawer-link'">{{ item.name }}</app-link>
-        <ul *ngIf="item.children?.length" class="drawer-sub">
-            <ng-container *ngFor="let c of item.children">
-                <li><app-link [path]="c.path" [linkClass]="'drawer-sublink'">{{ c.name }}</app-link></li>
-            </ng-container>
-        </ul>
-    </li>
 </ng-template>
