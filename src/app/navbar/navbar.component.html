@@ -1,5 +1,5 @@
 <div
-style="height: 100px;"
+style="height: 200px;"
 >z</div>
 <nav>
   <ul>
@@ -7,60 +7,129 @@ style="height: 100px;"
       class="nav-item"
       [class.active]="activeMenu === 'Home'"
       (mouseenter)="onMouseEnter('Home')"
-      (mouseleave)="onMouseLeave()"
+      (mouseleave)="onMouseLeave('Home')"
     >
       <a routerLink="/home" class="main-link">Home</a>
     </li>
 
     <li
       class="nav-item"
-      [class.active]="activeMenu === 'About'"
-      (mouseenter)="onMouseEnter('About')"
-      (mouseleave)="onMouseLeave()"
+      [class.active]="activeMenu === 'Products'"
+      (mouseenter)="onMouseEnter('Products')"
+      (mouseleave)="onMouseLeave('Products')"
     >
-      <a routerLink="/about" class="main-link">About</a>
+      <a routerLink="/products" class="main-link">Products ▾</a>
 
-      <div class="dropdown" *ngIf="activeMenu === 'About'">
-        <a routerLink="/about" class="dropdown-link">Company Info</a>
-        <a routerLink="/careers" class="dropdown-link">Careers</a>
-        <a routerLink="/contact" class="dropdown-link">Contact Us</a>
-        <a routerLink="/support" class="dropdown-link">Support</a>
+      <div class="dropdown" *ngIf="activeMenu === 'Products'">
+        <a routerLink="/software" class="dropdown-link">Software</a>
+        <a routerLink="/hardware" class="dropdown-link">Hardware</a>
+        <a routerLink="/accessories" class="dropdown-link">Accessories</a>
+      </div>
+    </li>
+
+    <li
+      class="nav-item"
+      [class.active]="activeMenu === 'Solutions'"
+      (mouseenter)="onMouseEnter('Solutions')"
+      (mouseleave)="onMouseLeave('Solutions')"
+    >
+      <a routerLink="/solutions" class="main-link">Solutions ▾</a>
+
+      <div class="dropdown" *ngIf="activeMenu === 'Solutions'">
+        <a routerLink="/enterprise" class="dropdown-link">Enterprise</a>
+        <a routerLink="/small-business" class="dropdown-link">Small Business</a>
+        <a routerLink="/startups" class="dropdown-link">Startups</a>
       </div>
     </li>
 
     <li
       class="nav-item"
       [class.active]="activeMenu === 'Services'"
+      
       (mouseenter)="onMouseEnter('Services')"
-      (mouseleave)="onMouseLeave()"
+      (mouseleave)="onMouseLeave('Services')"
     >
-      <a routerLink="/services" class="main-link">Services</a>
+      <a routerLink="/services" class="main-link">Services ▾</a>
 
       <div class="dropdown" *ngIf="activeMenu === 'Services'">
-        <a routerLink="/services" class="dropdown-link">Our Services</a>
-        <a routerLink="/portfolio" class="dropdown-link">Portfolio</a>
+        <a routerLink="/services" class="dropdown-link">All Services</a>
+        <a routerLink="/consulting" class="dropdown-link">Consulting</a>
         <a routerLink="/testimonials" class="dropdown-link">Testimonials</a>
       </div>
     </li>
 
     <li
       class="nav-item"
-      [class.active]="activeMenu === 'Blog'"
-      (mouseenter)="onMouseEnter('Blog')"
-      (mouseleave)="onMouseLeave()"
+      [class.active]="activeMenu === 'Portfolio'"
+      (mouseenter)="onMouseEnter('Portfolio')"
+      (mouseleave)="onMouseLeave('Portfolio')"
     >
-      <a routerLink="/blog" class="main-link">Blog</a>
+      <a routerLink="/portfolio" class="main-link">Portfolio</a>
+    </li>
 
-      <div class="dropdown" *ngIf="activeMenu === 'Blog'">
-        <a routerLink="/blog" class="dropdown-link">Latest Posts</a>
-        <a routerLink="/faq" class="dropdown-link">FAQ</a>
+    <li
+      class="nav-item"
+      [class.active]="activeMenu === 'Pricing'"
+      (mouseenter)="onMouseEnter('Pricing')"
+      (mouseleave)="onMouseLeave('Pricing')"
+    >
+      <a routerLink="/pricing" class="main-link">Pricing</a>
+    </li>
+
+    <li
+      class="nav-item"
+      [class.active]="activeMenu === 'About'"
+      (mouseenter)="onMouseEnter('About')"
+      (mouseleave)="onMouseLeave('About')"
+    >
+      <a routerLink="/about" class="main-link">About ▾</a>
+
+      <div class="dropdown" *ngIf="activeMenu === 'About'">
+        <a routerLink="/about" class="dropdown-link">Our Story</a>
+        <a routerLink="/careers" class="dropdown-link">Careers</a>
+        <a routerLink="/support" class="dropdown-link">Support Hub</a>
       </div>
+    </li>
+
+    <li
+      class="nav-item"
+      [class.active]="activeMenu === 'Resources'"
+      (mouseenter)="onMouseEnter('Resources')"
+      (mouseleave)="onMouseLeave('Resources')"
+    >
+      <a routerLink="/blog" class="main-link">Resources ▾</a>
+
+      <div class="dropdown" *ngIf="activeMenu === 'Resources'">
+        <a routerLink="/blog" class="dropdown-link">Latest Articles</a>
+        <a routerLink="/faq" class="dropdown-link">FAQs</a>
+        <a routerLink="/webinars" class="dropdown-link">Webinars</a>
+      </div>
+    </li>
+
+    <li
+      class="nav-item"
+      [class.active]="activeMenu === 'Partners'"
+      (mouseenter)="onMouseEnter('Partners')"
+      (mouseleave)="onMouseLeave('Partners')"
+    >
+      <a routerLink="/partners" class="main-link">Partners</a>
+    </li>
+
+    <li
+      class="nav-item"
+      [class.active]="activeMenu === 'Contact'"
+      (mouseenter)="onMouseEnter('Contact')"
+      (mouseleave)="onMouseLeave('Contact')"
+    >
+      <a routerLink="/contact" class="main-link">Contact</a>
     </li>
   </ul>
 </nav>
 
 <div class="ui-console">
+    <button (click)="clearLogs()">Clear Logs</button>
   <h4>iPad Event Logs</h4>
+  
   <ul>
     <li *ngFor="let log of uiLogs">{{ log }}</li>
   </ul>

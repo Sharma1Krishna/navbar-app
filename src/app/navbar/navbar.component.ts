@@ -26,11 +26,16 @@ export class NavbarComponent {
     this.activeMenu = menuName;
   }
 
-  onMouseLeave() {
-    this.addLog(`mouseleave triggered`); // Optional: log this too so you can see the cycle!
+  onMouseLeave(menuName?: string) {
+    const name = menuName ?? this.activeMenu ?? 'unknown';
+    this.addLog(`mouseleave: ${name}`);
 
     this.closeTimeout = setTimeout(() => {
-      this.activeMenu = null;
+      if (name === 'unknown') {
+        this.activeMenu = null;
+      } else if (this.activeMenu === name) {
+        this.activeMenu = null;
+      }
     }, 200);
   }
 
@@ -44,5 +49,9 @@ export class NavbarComponent {
     if (this.uiLogs.length > 20) {
       this.uiLogs.pop();
     }
+  }
+  // Add this new method below your addLog() method
+  clearLogs() {
+    this.uiLogs = [];
   }
 }
