@@ -1,136 +1,65 @@
-<div
-style="height: 200px;"
->z</div>
-<nav>
-  <ul>
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Home'"
-      (mouseenter)="onMouseEnter('Home')"
-      (mouseleave)="onMouseLeave('Home')"
-    >
-      <a routerLink="/home" class="main-link">Home</a>
-    </li>
+<div style="height: 200px;">zk</div>
+<header class="site-header">
+    <div class="brand">My Company</div>
+    <button class="hamburger" aria-label="Menu" (click)="toggleDrawer()">
+        <span [class.open]="isDrawerOpen"></span>
+    </button>
 
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Products'"
-      (mouseenter)="onMouseEnter('Products')"
-      (mouseleave)="onMouseLeave('Products')"
-    >
-      <a routerLink="/products" class="main-link">Products ▾</a>
 
-      <div class="dropdown" *ngIf="activeMenu === 'Products'">
-        <a routerLink="/software" class="dropdown-link">Software</a>
-        <a routerLink="/hardware" class="dropdown-link">Hardware</a>
-        <a routerLink="/accessories" class="dropdown-link">Accessories</a>
-      </div>
-    </li>
+    <ng-container *ngFor="let item of menuItems">
+        <ng-container *ngTemplateOutlet="navItem; context: { $implicit: item }"></ng-container>
+    </ng-container>
 
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Solutions'"
-      (mouseenter)="onMouseEnter('Solutions')"
-      (mouseleave)="onMouseLeave('Solutions')"
-    >
-      <a routerLink="/solutions" class="main-link">Solutions ▾</a>
+</header>
 
-      <div class="dropdown" *ngIf="activeMenu === 'Solutions'">
-        <a routerLink="/enterprise" class="dropdown-link">Enterprise</a>
-        <a routerLink="/small-business" class="dropdown-link">Small Business</a>
-        <a routerLink="/startups" class="dropdown-link">Startups</a>
-      </div>
-    </li>
-
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Services'"
-      
-      (mouseenter)="onMouseEnter('Services')"
-      (mouseleave)="onMouseLeave('Services')"
-    >
-      <a routerLink="/services" class="main-link">Services ▾</a>
-
-      <div class="dropdown" *ngIf="activeMenu === 'Services'">
-        <a routerLink="/services" class="dropdown-link">All Services</a>
-        <a routerLink="/consulting" class="dropdown-link">Consulting</a>
-        <a routerLink="/testimonials" class="dropdown-link">Testimonials</a>
-      </div>
-    </li>
-
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Portfolio'"
-      (mouseenter)="onMouseEnter('Portfolio')"
-      (mouseleave)="onMouseLeave('Portfolio')"
-    >
-      <a routerLink="/portfolio" class="main-link">Portfolio</a>
-    </li>
-
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Pricing'"
-      (mouseenter)="onMouseEnter('Pricing')"
-      (mouseleave)="onMouseLeave('Pricing')"
-    >
-      <a routerLink="/pricing" class="main-link">Pricing</a>
-    </li>
-
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'About'"
-      (mouseenter)="onMouseEnter('About')"
-      (mouseleave)="onMouseLeave('About')"
-    >
-      <a routerLink="/about" class="main-link">About ▾</a>
-
-      <div class="dropdown" *ngIf="activeMenu === 'About'">
-        <a routerLink="/about" class="dropdown-link">Our Story</a>
-        <a routerLink="/careers" class="dropdown-link">Careers</a>
-        <a routerLink="/support" class="dropdown-link">Support Hub</a>
-      </div>
-    </li>
-
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Resources'"
-      (mouseenter)="onMouseEnter('Resources')"
-      (mouseleave)="onMouseLeave('Resources')"
-    >
-      <a routerLink="/blog" class="main-link">Resources ▾</a>
-
-      <div class="dropdown" *ngIf="activeMenu === 'Resources'">
-        <a routerLink="/blog" class="dropdown-link">Latest Articles</a>
-        <a routerLink="/faq" class="dropdown-link">FAQs</a>
-        <a routerLink="/webinars" class="dropdown-link">Webinars</a>
-      </div>
-    </li>
-
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Partners'"
-      (mouseenter)="onMouseEnter('Partners')"
-      (mouseleave)="onMouseLeave('Partners')"
-    >
-      <a routerLink="/partners" class="main-link">Partners</a>
-    </li>
-
-    <li
-      class="nav-item"
-      [class.active]="activeMenu === 'Contact'"
-      (mouseenter)="onMouseEnter('Contact')"
-      (mouseleave)="onMouseLeave('Contact')"
-    >
-      <a routerLink="/contact" class="main-link">Contact</a>
-    </li>
-  </ul>
-</nav>
+<!-- Mobile drawer -->
+<aside class="drawer" [class.open]="isDrawerOpen" (click)="closeDrawer()">
+    <div class="drawer-inner" (click)="$event.stopPropagation()">
+        <div class="drawer-header">
+            <strong>Menu</strong>
+            <button class="close" (click)="closeDrawer()">✕</button>
+        </div>
+        <ul class="drawer-list">
+            <ng-container *ngFor="let item of menuItems">
+                <ng-container *ngTemplateOutlet="drawerItem; context: { $implicit: item }"></ng-container>
+            </ng-container>
+        </ul>
+    </div>
+</aside>
 
 <div class="ui-console">
     <button (click)="clearLogs()">Clear Logs</button>
-  <h4>iPad Event Logs</h4>
-  
-  <ul>
-    <li *ngFor="let log of uiLogs">{{ log }}</li>
-  </ul>
+    <h4>iPad Event Logs</h4>
+    <ul>
+        <li *ngFor="let log of uiLogs">{{ log }}</li>
+    </ul>
 </div>
+
+<!-- Templates -->
+<ng-template #navItem let-item>
+    <nav class="desktop-nav" (mouseleave)="onMouseLeave(item.name)">
+        <ul>
+            <li class="nav-item" [class.has-children]="item.children?.length" (mouseenter)="onMouseEnter(item.name)"
+                >
+                <app-link [path]="item.path" [linkClass]="'main-link'">{{ item.name }}<span
+                        *ngIf="item.children?.length"> ▾</span></app-link>
+                <div class="dropdown" *ngIf="item.children?.length">
+                    <ng-container *ngFor="let c of item.children">
+                        <app-link [path]="c.path" [linkClass]="'dropdown-link'">{{ c.name }}</app-link>
+                    </ng-container>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</ng-template>
+
+<ng-template #drawerItem let-item>
+    <li class="drawer-item">
+        <app-link [path]="item.path" [linkClass]="'drawer-link'">{{ item.name }}</app-link>
+        <ul *ngIf="item.children?.length" class="drawer-sub">
+            <ng-container *ngFor="let c of item.children">
+                <li><app-link [path]="c.path" [linkClass]="'drawer-sublink'">{{ c.name }}</app-link></li>
+            </ng-container>
+        </ul>
+    </li>
+</ng-template>

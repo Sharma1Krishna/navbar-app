@@ -1,17 +1,72 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AppLinkComponent } from '../shared/app-link.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, AppLinkComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
   activeMenu: string | null = null; 
   private closeTimeout: any;
+  isDrawerOpen = false;
+  // Structured menu data used by the template
+  menuItems = [
+    { name: 'Home', path: '/home' },
+    {
+      name: 'Products',
+      path: '/products',
+      children: [
+        { name: 'Software', path: '/software' },
+        { name: 'Hardware', path: '/hardware' },
+        { name: 'Accessories', path: '/accessories' }
+      ]
+    },
+    {
+      name: 'Solutions',
+      path: '/solutions',
+      children: [
+        { name: 'Enterprise', path: '/enterprise' },
+        { name: 'Small Business', path: '/small-business' },
+        { name: 'Startups', path: '/startups' }
+      ]
+    },
+    {
+      name: 'Services',
+      path: '/services',
+      children: [
+        { name: 'All Services', path: '/services' },
+        { name: 'Consulting', path: '/consulting' },
+        { name: 'Testimonials', path: '/testimonials' }
+      ]
+    },
+    { name: 'Portfolio', path: '/portfolio' },
+    { name: 'Pricing', path: '/pricing' },
+    {
+      name: 'About',
+      path: '/about',
+      children: [
+        { name: 'Our Story', path: '/about' },
+        { name: 'Careers', path: '/careers' },
+        { name: 'Support Hub', path: '/support' }
+      ]
+    },
+    {
+      name: 'Resources',
+      path: '/blog',
+      children: [
+        { name: 'Latest Articles', path: '/blog' },
+        { name: 'FAQs', path: '/faq' },
+        { name: 'Webinars', path: '/webinars' }
+      ]
+    },
+    { name: 'Partners', path: '/partners' },
+    { name: 'Contact', path: '/contact' }
+  ];
 
   // 1. Array to hold our on-screen logs
   uiLogs: string[] = [];
@@ -39,11 +94,19 @@ export class NavbarComponent {
     }, 200);
   }
 
+  toggleDrawer() {
+    this.isDrawerOpen = !this.isDrawerOpen;
+  }
+
+  closeDrawer() {
+    this.isDrawerOpen = false;
+  }
+
   // 3. Helper function to format logs and keep the array from getting too big
   addLog(message: string) {
     const time = new Date().toLocaleTimeString();
     // Use unshift to put the newest log at the top of the list
-    this.uiLogs.unshift(`[${time}] ${message}`); 
+    this.uiLogs.push(`${message}  [${time}]`); 
     
     // Keep only the last 20 logs so it doesn't eat up iPad memory
     if (this.uiLogs.length > 20) {

@@ -1,11 +1,14 @@
 /* ... Your existing CSS stays here ... */
 /* 1. Make the navigation bar horizontal and style the background */
 nav ul {
+    height: 5rem;
   display: flex;
   list-style-type: none; /* Removes the bullet points */
   margin: 0;
+  font-size: 2.2rem;
+  font-weight: 900;
   padding: 0;
-  background-color: #1e293b; /* Modern dark blue/slate background */
+  background-color: #a1bae4; /* Modern dark blue/slate background */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* Subtle shadow below the navbar */
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
@@ -66,4 +69,71 @@ nav ul {
 .ui-console li {
   margin-bottom: 5px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Header layout */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background: linear-gradient(90deg,#0f172a,#1e293b);
+  color: #fff;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 12px 0;
+}
+
+.hamburger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger span,
+.hamburger span::before,
+.hamburger span::after {
+  content: '';
+  display: block;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger span { width: 22px; margin: 10px auto; }
+.hamburger span.open { transform: rotate(45deg); }
+
+.desktop-nav ul { display:flex; gap: 6px; margin:0; padding:0; }
+.desktop-nav .nav-item { list-style:none; }
+.desktop-nav .main-link { color: #f8fafc; padding: 14px 18px; display:inline-block; }
+.desktop-nav .dropdown { position:absolute; background:#fff; color:#111827; border-radius:6px; padding:8px; margin-top:6px; display:none; box-shadow:0 8px 20px rgba(2,6,23,0.2); }
+.desktop-nav .nav-item:hover .dropdown { display:block; }
+.dropdown-link { display:block; padding:8px 12px; color:#0f172a; text-decoration:none; }
+
+/* Drawer styles */
+.drawer { position:fixed; inset:0; display:flex; transform:translateX(-110%); transition:transform 0.28s ease; z-index:1200; }
+.drawer.open { transform:translateX(0); }
+.drawer::before { content:''; flex:1; background:rgba(2,6,23,0.5); }
+.drawer-inner { width:320px; background:#0b1220; color:#fff; padding:16px; box-shadow:4px 0 24px rgba(2,6,23,0.6); }
+.drawer-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.drawer-list { list-style:none; padding:0; margin:0; }
+.drawer-link { display:block; padding:10px 6px; color:#e6eef8; text-decoration:none; }
+.drawer-sub { list-style:none; margin:4px 0 12px 10px; padding:0; }
+.drawer-sublink { display:block; padding:6px 6px; color:#cbd5e1; text-decoration:none; font-size:14px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hamburger { display:block; }
+  .desktop-nav { display:none; }
+}
+
+@media (min-width: 900px) {
+  .drawer { display:none; }
 }
