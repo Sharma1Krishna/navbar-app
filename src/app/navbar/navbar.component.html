@@ -1,4 +1,4 @@
-<div style="height: 200px;">zk{{isDrawerOpen}} Active index:: {{activeIndex}}</div>
+<div style="height: 200px;">z{{isDrawerOpen}} Active index:: {{activeIndex}}</div>
 <header class="site-header">
     <!-- <div class="brand">My Company</div>
     <button class="hamburger" aria-label="Menu" (click)="toggleDrawer()">
@@ -23,8 +23,8 @@
 
 <!-- Templates -->
 <ng-template #navItem let-item let-i="index">
-    <nav class="desktop-nav" (mouseleave)="onMouseLeave(item.name); activeIndex = -1"
-    (mouseenter)="onMouseEnter(item.name); activeIndex = i"
+    <nav class="desktop-nav" (mouseleave)="onMouseLeave(item.name);"
+    (mouseenter)="onMouseEnter(item.name, i);"
     >
         <ul>
             <li class="nav-item" [class.has-children]="item.children?.length" 
