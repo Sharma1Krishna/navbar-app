@@ -5,11 +5,12 @@ import { NavigationEnd, NavigationStart, Router, RouterModule } from '@angular/r
 import { AppLinkComponent } from '../shared/app-link.component';
 import { filter } from 'rxjs';
 import { menuItems } from './menu';
+import { DebugLogComponent } from '../shared/debuglog.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, AppLinkComponent],
+  imports: [CommonModule, RouterModule, AppLinkComponent, DebugLogComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })

@@ -13,13 +13,7 @@
 </header>
 
 
-<div class="ui-console">
-    <button (click)="clearLogs()">Clear Logs</button>
-    <h4>iPad Event Logs</h4>
-    <ul>
-        <li *ngFor="let log of uiLogs">{{ log }}</li>
-    </ul>
-</div>
+<app-debug-log [logs]="uiLogs" (clearLogs)="clearLogs()"></app-debug-log>
 
 <!-- Templates -->
 <ng-template #navItem let-item let-i="index">
