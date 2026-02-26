@@ -1,8 +1,9 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router, RouterModule } from '@angular/router';
 import { AppLinkComponent } from '../shared/app-link.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,9 +12,9 @@ import { AppLinkComponent } from '../shared/app-link.component';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   activeIndex: number | null = -1;
-  activeMenu: string | null = null; 
+  activeMenu: string | null = null;
   private closeTimeout: any;
   isDrawerOpen = false;
   // Structured menu data used by the template
@@ -69,7 +70,40 @@ export class NavbarComponent {
     { name: 'Partners', path: '/partners' },
     { name: 'Contact', path: '/contact' }
   ];
+  constructor(private router: Router) { }
 
+  ngOnInit() {
+    this.router.events.pipe().subscribe((event) => {
+     // 1. Lock the screen the exact millisecond routing starts
+        if (event instanceof NavigationStart) {
+          if (typeof document !== 'undefined') {
+            document.body.classList.add('navigating-lock');
+          }
+        }
+
+        // 2. Unlock synced with the browser paint (NO TIMEOUT)
+        if (event instanceof NavigationEnd) {
+          this.activeIndex = null; 
+          
+          if (typeof document !== 'undefined') {
+            
+            // Force iPad to drop its invisible hover state
+            if (document.activeElement instanceof HTMLElement) {
+              document.activeElement.blur();
+            }
+
+            // Wait exactly 1 frame for the browser to draw the new page
+            requestAnimationFrame(() => {
+              // Wait exactly 1 more frame for WebKit to clear the ghost click
+              requestAnimationFrame(() => {
+                document.body.classList.remove('navigating-lock');
+              });
+            }); 
+            
+          }
+        }
+    })
+  }
   // 1. Array to hold our on-screen logs
   uiLogs: string[] = [];
   reset() {
@@ -113,8 +147,8 @@ export class NavbarComponent {
   addLog(message: string) {
     const time = new Date().toLocaleTimeString();
     // Use unshift to put the newest log at the top of the list
-    this.uiLogs.push(`${message}  [${time}]`); 
-    
+    this.uiLogs.push(`${message}  [${time}]`);
+
     // Keep only the last 20 logs so it doesn't eat up iPad memory
     if (this.uiLogs.length > 20) {
       this.uiLogs.pop();

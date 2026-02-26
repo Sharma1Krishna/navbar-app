@@ -140,3 +140,13 @@ nav ul {
 @media (min-width: 900px) {
   .drawer { display:none; }
 }
+
+/* Fix for Apple/iOS Ghost Clicks */
+/* global styles.scss */
+a, button, .nav-item, .main-link, .dropdown-link {
+  touch-action: manipulation; 
+}
+
+body.navigating-lock {
+  pointer-events: none !important;
+}
